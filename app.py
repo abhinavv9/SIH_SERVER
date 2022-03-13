@@ -1,5 +1,7 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
+import json
+
 
 app = Flask(__name__)
 
@@ -12,25 +14,14 @@ cors = CORS(app, resource={
 
 @app.route("/")
 def hello_world():
-    return "{'success': 'true', 'message': 'wrong route'}"
+    return "{'success': 'true', 'message': 'No data here.'}"
 
-app.run( debug = True)
-
-import csv, json
-
-csv_file = './data.csv'
-json_file = './data.json'
 
 data = {}
-with open(csv_file) as csvFile:
-    csvReader = csv.DictReader(csvFile)
-    for row in csvReader:
-        id = row['Domain']
-        data[id] = row
-
-with open(json_file, 'w') as jsonFile:
-    jsonFile.write(json.dumps(data, indent=4))
-
+f = open('news_content.json', encoding='utf-8')
+data = json.load(f)
+f.close()
+print(type(data))
 @app.route('/sumarize')
 def summarize():
-    return data
+    return {'data': data}
