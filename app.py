@@ -18,7 +18,7 @@ def hello_world():
 
 
 data = {}
-f = open('news_content.json', encoding='utf-8')
+f = open('new_data.json', encoding='utf-8')
 data = json.load(f)
 f.close()
 print(type(data))
